@@ -83,7 +83,7 @@
   "npmName": "react-slick",
   "npmFileMap": [
     {
-      "basePath": "/lib/",
+      "basePath": "/dist/",
       "files": [
         "*.js"
       ]
