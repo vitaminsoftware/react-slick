@@ -1763,7 +1763,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        nextClasses['slick-disabled'] = true;
 	        nextHandler = null;
 	      } else {
-	        if (this.props.currentSlide >= this.props.slideCount - this.props.slidesToShow) {
+	        if (this.props.currentSlide > this.props.slideCount - this.props.slidesToShow) {
 	          nextClasses['slick-disabled'] = true;
 	          nextHandler = null;
 	        }
