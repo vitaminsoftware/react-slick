@@ -332,6 +332,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    return _react2.default.createElement(
 	      'div',
 	      { className: className, onMouseEnter: this.onInnerSliderEnter, onMouseLeave: this.onInnerSliderLeave },
+	      prevArrow,
 	      _react2.default.createElement(
 	        'div',
 	        {
@@ -344,14 +345,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	          onTouchStart: this.swipeStart,
 	          onTouchMove: this.state.dragging ? this.swipeMove : null,
 	          onTouchEnd: this.swipeEnd,
-	          onTouchCancel: this.state.dragging ? this.swipeEnd : null },
+	          onTouchCancel: this.state.dragging ? this.swipeEnd : null,
+	          onKeyDown: this.props.accessibility ? this.keyHandler : null },
 	        _react2.default.createElement(
 	          _track.Track,
 	          _extends({ ref: 'track' }, trackProps),
 	          this.props.children
 	        )
 	      ),
-	      prevArrow,
 	      nextArrow,
 	      dots
 	    );
@@ -411,7 +412,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	    this.slideHandler(targetSlide);
 	  },
 	  // Accessiblity handler for previous and next
-	  keyHandler: function keyHandler(e) {},
+	  keyHandler: function keyHandler(e) {
+	    //Dont slide if the cursor is inside the form fields and arrow keys are pressed
+	    if (!e.target.tagName.match('TEXTAREA|INPUT|SELECT')) {
+	      if (e.keyCode === 37 && this.props.accessibility === true) {
+	        this.changeSlide({
+	          message: this.props.rtl === true ? 'next' : 'previous'
+	        });
+	      } else if (e.keyCode === 39 && this.props.accessibility === true) {
+	        this.changeSlide({
+	          message: this.props.rtl === true ? 'previous' : 'next'
+	        });
+	      }
+	    }
+	  },
 	  // Focus on selecting a slide (click handler on track)
 	  selectHandler: function selectHandler(e) {},
 	  swipeStart: function swipeStart(e) {
@@ -1343,7 +1357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var defaultProps = {
 	    className: '',
-	    // accessibility: true,
+	    accessibility: true,
 	    adaptiveHeight: false,
 	    arrows: true,
 	    autoplay: false,
@@ -1544,6 +1558,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      key: 'original' + getKey(child, index),
 	      'data-index': index,
 	      className: cssClasses,
+	      tabIndex: '-1',
 	      style: (0, _objectAssign2.default)({}, child.props.style || {}, childStyle)
 	    }));
 
