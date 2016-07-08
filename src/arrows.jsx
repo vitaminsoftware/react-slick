@@ -51,11 +51,11 @@ export var NextArrow = React.createClass({
       if (this.props.centerMode && this.props.currentSlide >= (this.props.slideCount - 1)) {
         nextClasses['slick-disabled'] = true;
         nextHandler = null;
-      } else {
-        if (this.props.currentSlide > (this.props.slideCount - this.props.slidesToShow)) {
-          nextClasses['slick-disabled'] = true;
-          nextHandler = null;
-        }
+      }
+
+      if (this.props.currentSlide >= (this.props.slideCount - this.props.slidesToShow)) {
+        nextClasses['slick-disabled'] = true;
+        nextHandler = null;
       }
 
       if (this.props.slideCount <= this.props.slidesToShow) {
